@@ -1,13 +1,16 @@
-using Study.Application;
 using Study.Infrastructure;
-using Study.Infrastructure.Persistence;
+using Study.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Services
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Application & Infrastructure layers
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // CORS för frontend (Vite kör på http://localhost:5173)
 builder.Services.AddCors(opt =>
@@ -18,26 +21,21 @@ builder.Services.AddCors(opt =>
          .AllowAnyMethod());
 });
 
-// Application & Infrastructure
-var conn = builder.Configuration.GetConnectionString("Default") ?? "Data Source=study.db";
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(conn);
-
 var app = builder.Build();
 
-// Skapa SQLite-databasen om den saknas
-using (var scope = app.Services.CreateScope())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-// Swagger alltid på lokalt
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseHttpsRedirection();
 
-// Aktivera CORS (måste komma före MapControllers)
 app.UseCors("frontend");
 
+app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();

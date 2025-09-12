@@ -9,6 +9,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS för frontend (Vite kör på http://localhost:5173)
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("frontend", p =>
+        p.WithOrigins("http://localhost:5173")
+         .AllowAnyHeader()
+         .AllowAnyMethod());
+});
+
 // Application & Infrastructure
 var conn = builder.Configuration.GetConnectionString("Default") ?? "Data Source=study.db";
 builder.Services.AddApplication();
@@ -27,6 +36,8 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapControllers();
+// Aktivera CORS (måste komma före MapControllers)
+app.UseCors("frontend");
 
+app.MapControllers();
 app.Run();

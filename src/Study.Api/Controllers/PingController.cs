@@ -7,5 +7,8 @@ namespace Study.Api.Controllers;
 public class PingController : ControllerBase
 {
     [HttpGet]
-    public ActionResult<string> Get() => "pong";
+    public ActionResult<string> Get()
+    {
+        return "pong";
+    }
 }

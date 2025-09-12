@@ -1,13 +1,24 @@
+// HEAD
 using Study.Infrastructure;
 using Study.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+using Study.Application;
+using Study.Infrastructure;
+using Study.Infrastructure.Persistence;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Services
+>>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//HEAD
 // Application & Infrastructure layers
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -35,6 +46,25 @@ app.UseHttpsRedirection();
 app.UseCors("frontend");
 
 app.UseAuthorization();
+
+// Application & Infrastructure
+var conn = builder.Configuration.GetConnectionString("Default") ?? "Data Source=study.db";
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(conn);
+
+var app = builder.Build();
+
+// Skapa SQLite-databasen om den saknas
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
+
+// Swagger alltid på lokalt
+app.UseSwagger();
+app.UseSwaggerUI();
+>>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
 
 app.MapControllers();
 

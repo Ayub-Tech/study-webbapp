@@ -1,5 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+ HEAD
+ HEAD
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
+		<PackageReference Include="MediatR" Version="12.2.0" />
+	</ItemGroup>
+
+
+origin/main
   <ItemGroup>
     <ProjectReference Include="..\Study.Domain\Study.Domain.csproj" />
   </ItemGroup>
@@ -17,5 +31,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+ HEAD
+ 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
+
+>>>>>>> origin/main
 
 </Project>

@@ -1,3 +1,4 @@
+ HEAD
 // HEAD
 using Study.Infrastructure;
 using Study.Application;
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+origin/main
 using Study.Application;
 using Study.Infrastructure;
 using Study.Infrastructure.Persistence;
@@ -13,11 +15,15 @@ using Study.Infrastructure.Persistence;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
->>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
+ HEAD
+ 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
+
+origin/main
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+HEAD
 //HEAD
 // Application & Infrastructure layers
 builder.Services.AddApplication();
@@ -47,6 +53,8 @@ app.UseCors("frontend");
 
 app.UseAuthorization();
 
+
+origin/main
 // Application & Infrastructure
 var conn = builder.Configuration.GetConnectionString("Default") ?? "Data Source=study.db";
 builder.Services.AddApplication();
@@ -64,7 +72,9 @@ using (var scope = app.Services.CreateScope())
 // Swagger alltid på lokalt
 app.UseSwagger();
 app.UseSwaggerUI();
->>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
+ HEAD
+0a4fac79134d8f05b5d2c7d493768e3a8d086c99
+origin/main
 
 app.MapControllers();
 

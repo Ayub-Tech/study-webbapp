@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-<<<<<<< HEAD
+HEAD
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
@@ -14,7 +14,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
-=======
+
   <ItemGroup>
     <ProjectReference Include="..\Study.Domain\Study.Domain.csproj" />
     <ProjectReference Include="..\Study.Application\Study.Application.csproj" />
@@ -34,6 +34,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
->>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
+ 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
 
 </Project>

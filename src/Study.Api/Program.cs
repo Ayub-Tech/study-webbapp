@@ -1,3 +1,11 @@
+// HEAD
+using Study.Infrastructure;
+using Study.Application;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
 using Study.Application;
 using Study.Infrastructure;
 using Study.Infrastructure.Persistence;
@@ -5,9 +13,15 @@ using Study.Infrastructure.Persistence;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
+>>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//HEAD
+// Application & Infrastructure layers
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // CORS för frontend (Vite kör på http://localhost:5173)
 builder.Services.AddCors(opt =>
@@ -17,6 +31,21 @@ builder.Services.AddCors(opt =>
          .AllowAnyHeader()
          .AllowAnyMethod());
 });
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseCors("frontend");
+
+app.UseAuthorization();
 
 // Application & Infrastructure
 var conn = builder.Configuration.GetConnectionString("Default") ?? "Data Source=study.db";
@@ -35,9 +64,8 @@ using (var scope = app.Services.CreateScope())
 // Swagger alltid på lokalt
 app.UseSwagger();
 app.UseSwaggerUI();
-
-// Aktivera CORS (måste komma före MapControllers)
-app.UseCors("frontend");
+>>>>>>> 0a4fac79134d8f05b5d2c7d493768e3a8d086c99
 
 app.MapControllers();
+
 app.Run();
